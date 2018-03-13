@@ -8,6 +8,7 @@
 
 namespace frontend\controllers;
 
+use common\mail\Mailer;
 use common\models\LoginFrontForm;
 use common\models\PcComment;
 use common\models\PcInfoList;
@@ -106,5 +107,16 @@ class HomeController extends Controller
     public function actionSavePinChe()
     {
 
+    }
+
+    public function actionSendEmail()
+    {
+        $data = [
+            'to' => 'huangy02@mingyuanyun.com',
+            'subject' => 'just a test',
+            'content' => 'This is just a test.邮件内容',
+        ];
+        $mailer = new Mailer;
+        $mailer->yiiSend($data);
     }
 }

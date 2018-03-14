@@ -9,7 +9,14 @@
 namespace console\controllers;
 
 
-class TaskController
-{
+use common\swoole\TaskServer;
+use yii\console\Controller;
 
+class TaskController extends Controller
+{
+    public function actionSwooleRun()
+    {
+        $taskServer = new TaskServer();
+        $taskServer->start();
+    }
 }

@@ -52,10 +52,6 @@ class Mailer
         $mail->setSubject($data['subject']);
         //$mail->setTextBody('zheshisha ');   //发布纯文字文本
         $mail->setHtmlBody("<br>问我我我我我".$data['content']);    //发布可以带html标签的文本
-        if($mail->send())
-            echo "success";
-        else
-            echo "failse";
-        die();
+        return $mail->send();
     }
 }

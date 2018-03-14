@@ -14,6 +14,7 @@ use common\models\PcComment;
 use common\models\PcInfoList;
 use common\models\PcTravel;
 use common\models\TravelSearch;
+use common\swoole\TaskClient;
 use common\utils\ArrayHelper;
 use frontend\models\SignupFrontForm;
 use Yii;
@@ -111,12 +112,20 @@ class HomeController extends Controller
 
     public function actionSendEmail()
     {
-        $data = [
+        /*$data = [
             'to' => 'huangy02@mingyuanyun.com',
             'subject' => 'just a test',
             'content' => 'This is just a test.邮件内容',
         ];
         $mailer = new Mailer;
-        $mailer->yiiSend($data);
+        $mailer->yiiSend($data);*/
+        $data = [
+            'event' => TaskClient::EVENT_TYPE_SEND_MAIL,
+            'to' => 'huangy02@mingyuanyun.com',
+            'subject' => 'just a test',
+            'content' => 'This is just a test.邮件内容.swoole',
+        ];
+        $client = new TaskClient();
+        $client->sendData($data);
     }
 }

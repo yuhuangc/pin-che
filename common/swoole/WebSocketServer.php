@@ -15,7 +15,7 @@ class WebSocketServer
 
     public function __construct()
     {
-        $this->_serv = new \swoole_websocket_server("127.0.0.1", 9501);
+        $this->_serv = new \swoole_websocket_server("0.0.0.0", 9501);
         $this->_serv->set([
             'worker_num' => 1,
         ]);

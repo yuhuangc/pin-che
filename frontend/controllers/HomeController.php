@@ -128,4 +128,9 @@ class HomeController extends Controller
         $client = new TaskClient();
         $client->sendData($data);
     }
+
+    public function actionSocket()
+    {
+        return $this->renderPartial('swoole_websocket.html');
+    }
 }

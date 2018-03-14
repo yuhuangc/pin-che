@@ -10,6 +10,7 @@ namespace console\controllers;
 
 
 use common\swoole\TaskServer;
+use common\swoole\WebSocketServer;
 use yii\console\Controller;
 
 class TaskController extends Controller
@@ -18,5 +19,11 @@ class TaskController extends Controller
     {
         $taskServer = new TaskServer();
         $taskServer->start();
+    }
+
+    public function actionWebSocketRun()
+    {
+        $server = new WebSocketServer;
+        $server->start();
     }
 }

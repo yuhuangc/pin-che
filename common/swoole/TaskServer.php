@@ -41,7 +41,7 @@ class TaskServer
     }
     public function onWorkerStart($serv, $workerId)
     {
-        require_once __DIR__ . "/TaskRun.php";
+        //require_once __DIR__ . "/TaskRun.php";
         $this->_run = new TaskRun;
     }
     public function onReceive($serv, $fd, $fromId, $data)

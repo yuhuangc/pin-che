@@ -16,7 +16,7 @@ class TaskClient
 
     public function __construct ()
     {
-        $this->client = new swoole_client(SWOOLE_SOCK_TCP);
+        $this->client = new \swoole_client(SWOOLE_SOCK_TCP);
         if (!$this->client->connect('127.0.0.1', 9501)) {
             $msg = 'swoole client connect failed.';
             throw new \Exception("Error: {$msg}.");

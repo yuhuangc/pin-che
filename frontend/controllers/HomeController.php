@@ -133,4 +133,9 @@ class HomeController extends Controller
     {
         return $this->renderPartial('swoole_websocket.html');
     }
+    public function actionComment()
+    {
+        return $this->renderPartial('comment_client');
+    }
+
 }

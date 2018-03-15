@@ -9,6 +9,7 @@
 namespace console\controllers;
 
 
+use common\swoole\CommentServer;
 use common\swoole\TaskServer;
 use common\swoole\WebSocketServer;
 use yii\console\Controller;
@@ -24,6 +25,12 @@ class TaskController extends Controller
     public function actionWebSocketRun()
     {
         $server = new WebSocketServer;
+        $server->start();
+    }
+
+    public function actionCommentServerRun()
+    {
+        $server = new CommentServer();
         $server->start();
     }
 }

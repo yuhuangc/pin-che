@@ -15,6 +15,7 @@ use common\models\PcInfoList;
 use common\models\PcTravel;
 use common\models\TravelSearch;
 use common\swoole\TaskClient;
+use common\swoole\TcpClient;
 use common\utils\ArrayHelper;
 use frontend\models\SignupFrontForm;
 use Yii;
@@ -137,5 +138,12 @@ class HomeController extends Controller
     {
         return $this->renderPartial('comment_client');
     }
-
+    public function actionTcpClient()
+    {
+        $client = new TcpClient();
+        $client->sendData([
+            'event' => 'alertTip',
+            'toUid' => 100,
+        ]);
+    }
 }

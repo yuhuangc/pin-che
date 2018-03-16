@@ -12,6 +12,7 @@ namespace common\swoole;
 class CommentServer
 {
     private $_serv;
+    private $_tcp;
     public $key = '^huangyu.top&swoole$';
     // 用户id和fd对应的映射,key => value,key是用户的uid,value是用户的fd
     public $user2fd = [];
@@ -27,6 +28,38 @@ class CommentServer
         $this->_serv->on('open', [$this, 'onOpen']);
         $this->_serv->on('message', [$this, 'onMessage']);
         $this->_serv->on('close', [$this, 'onClose']);
+
+        $this->_tcp = $this->_serv->listen('127.0.0.1', 9502, SWOOLE_SOCK_TCP);
+        $this->_tcp->set([
+            'open_eof_check' => true, //打开EOF检测
+            'package_eof' => "\r\n", //设置EOF
+            'open_eof_split' => true, // 自动分包
+        ]);
+        $this->_tcp->on('Receive', [$this, 'onReceive']);
+    }
+
+    public function onReceive($serv, $fd, $fromId, $data)
+    {
+        try {
+            $data = json_decode($data, true);
+            if (!isset($data['event'])) {
+                throw new \Exception("params error, needs event param.", 1);
+            }
+
+            $method = $data['event'];
+
+            // 调起对应的方法
+            if(!method_exists($this, $method)) {
+                throw new \Exception("params error, not support method.", 1);
+            }
+            $this->$method($fd, $data);
+
+            return true;
+
+        } catch (\Exception $e) {
+            $msg = $e->getMessage();
+            throw new \Exception("{$msg}", 1);
+        }
     }
 
     /**

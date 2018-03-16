@@ -22,6 +22,9 @@ class CommentServer
         $this->_serv = new \swoole_websocket_server("0.0.0.0", 9501);
         $this->_serv->set([
             'worker_num' => 1,
+            //N秒检查一次
+            //swoole的实现原理是这样的：server每次收到客户端的数据包都会记录一个时间戳，
+            //N秒内循环检测下所有的连接，如果M秒内该连接还没有活动，才断开这个连接
             'heartbeat_check_interval' => 60,
             'heartbeat_idle_time' => 125,
         ]);

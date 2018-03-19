@@ -47,7 +47,10 @@ return [
                 '/<controller:[\w|-]+>/<action:[\w|-]+>/<travelId:\w+>'=>'<controller>/<action>',
             ],
         ],
-
+        /*资源包管理器是否去除缓存*/
+        'assetManager' => [
+            'appendTimestamp' => true,
+        ],
     ],
     'params' => $params,
 ];
